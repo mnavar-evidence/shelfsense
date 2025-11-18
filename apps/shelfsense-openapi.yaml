@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  title: ShelfSense API
+  description: AI-powered micromarket inventory management API for ChatGPT
+  version: 1.0.0
+servers:
+  - url: https://your-railway-url.up.railway.app
+    description: Production server
+
+paths:
+  /api/locations:
+    get:
+      operationId: getLocations
+      summary: Get all micromarket locations
+      description: List all micromarket locations (hotels, offices, airports, hospitals)
+      parameters:
+        - name: location_type
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [hotel, office, airport, hospital]
+          description: Filter by location type
+      responses:
+        '200':
+          description: List of locations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+
+  /api/pick-list:
+    get:
+      operationId: getPickList
+      summary: Get pick list for a location
+      description: Get AI-generated pick list with recommended quantities for restocking
+      parameters:
+        - name: location_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Location ID (e.g., loc_westin_sf)
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Date in YYYY-MM-DD format (defaults to today)
+      responses:
+        '200':
+          description: Pick list with items and recommendations
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/pick-list/all:
+    get:
+      operationId: getAllPickLists
+      summary: Get pick lists for all locations
+      description: Get pick lists for all locations at once
+      parameters:
+        - name: date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Date in YYYY-MM-DD format (defaults to today)
+      responses:
+        '200':
+          description: List of pick lists for all locations
+          content:
+            application/json:
+              schema:
+                type: array
+
+  /api/forecast/demand:
+    get:
+      operationId: getDemandForecast
+      summary: Get demand forecast
+      description: Get AI-powered demand forecast with confidence intervals (P10/P50/P90)
+      parameters:
+        - name: location_id
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Location ID
+        - name: product_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Product ID (optional, returns all if omitted)
+        - name: forecast_date
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+          description: Date to forecast (defaults to tomorrow)
+      responses:
+        '200':
+          description: Demand forecasts with confidence ranges
+          content:
+            application/json:
+              schema:
+                type: array
+
+  /api/models/product-accuracy:
+    get:
+      operationId: getModelAccuracy
+      summary: Get model accuracy metrics
+      description: Get ML model performance metrics (MAE, RMSE, accuracy percentage)
+      parameters:
+        - name: location_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by location
+        - name: product_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by product
+      responses:
+        '200':
+          description: Model accuracy metrics
+          content:
+            application/json:
+              schema:
+                type: array
+
+  /api/inventory/status:
+    get:
+      operationId: getInventoryStatus
+      summary: Get inventory status
+      description: Get current inventory levels and status (optimal, low, critical, overstock)
+      parameters:
+        - name: location_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by location
+        - name: status_filter
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [optimal, low, critical, overstock]
+          description: Filter by status
+      responses:
+        '200':
+          description: Inventory status information
+          content:
+            application/json:
+              schema:
+                type: array
+
+  /api/analytics/summary:
+    get:
+      operationId: getAnalyticsSummary
+      summary: Get analytics summary
+      description: Get overall analytics including locations, accuracy, stockout risks, and top sellers
+      responses:
+        '200':
+          description: Analytics summary
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/products:
+    get:
+      operationId: getProducts
+      summary: Get all products
+      description: List all products in the catalog
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by category
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
