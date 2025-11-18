@@ -84,7 +84,7 @@ railway up
   "mcpServers": {
     "shelfsense": {
       "command": "python",
-      "args": ["/Users/mnavar/Work/coding/projects/shelf-sense/shelfsense-mcp-server/server.py"],
+      "args": ["/Users/mnavar/Work/coding/projects/shelf-sense/apps/shelfsense-mcp-server/server.py"],
       "env": {
         "SHELFSENSE_API_URL": "https://your-railway-api.up.railway.app"
       }

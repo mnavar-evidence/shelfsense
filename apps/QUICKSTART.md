@@ -14,7 +14,7 @@ Get ShelfSense running in ChatGPT in 10 minutes!
 ### Option A: Automated Deployment
 
 ```bash
-cd shelf-sense
+cd shelfsense/apps
 ./deploy.sh
 ```
 
@@ -71,7 +71,7 @@ You should see JSON responses with ShelfSense data.
        "shelfsense": {
          "command": "python",
          "args": [
-           "/Users/mnavar/Work/coding/projects/shelf-sense/shelfsense-mcp-server/server.py"
+           "/Users/mnavar/Work/coding/projects/shelf-sense/apps/shelfsense-mcp-server/server.py"
          ],
          "env": {
            "SHELFSENSE_API_URL": "https://your-api.up.railway.app"
