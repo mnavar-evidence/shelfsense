@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.local
+mock_api_url.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files (keep in separate repo or LFS)
+*.dump
+*.zip
+Averigo/
+Averigo.zip
+averigo_db_bkp.dump
+
+# Node modules
+node_modules/
+
+# Temporary files
+*.log
+*.tmp
